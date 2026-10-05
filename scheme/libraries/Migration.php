@@ -186,8 +186,9 @@ EOT;
         $this->line("Running pending migrations...", 'blue');
 
         $applied    = $this->get_applied_migrations();
-        $files      = glob($this->migrations_folder . '*.php');
+       $files      = glob(rtrim($this->migrations_folder, '/\\') . '/*.php');
         $migrated   = 0;
+        $this->info("DEBUG folder=" . $this->migrations_folder . " | files=" . count($files) . " | applied=" . json_encode($applied));
 
         foreach ($files as $file) {
             $version = (int) substr(basename($file), 0, 3);
